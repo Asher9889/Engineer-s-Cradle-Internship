@@ -20,6 +20,10 @@ const router = createBrowserRouter([
     path: "/products",
     element: <Products />,
   },
+  {
+    path: "*",
+    element: <AuthPage />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(

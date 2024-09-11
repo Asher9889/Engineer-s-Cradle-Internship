@@ -3,9 +3,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import useLogin from "../hooks/useLogin";
 import useAuth from "../hooks/useAuth";
+import useAutoAuth from "../hooks/useAutoAuth";
 
 const Register = () => {
-  const [loading , setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
   const passworRef = useRef(null);
   const navigate = useNavigate();
@@ -14,21 +15,23 @@ const Register = () => {
   // destructuring returing object from uselogin hook
   const { userAuth, status } = useAuth();
 
-  useEffect(()=>{
-    if(status){
-      if (location.pathname === "/login"){
+  // checks user logged in or not
+  useAutoAuth();
+
+  
+  useEffect(() => {
+    if (status) {
+      if (location.pathname === "/login") {
         Cookies.set("authToken", status.token, { expires: 7 });
-        
-        console.log("logged from login page", status)
-      } else if(location.pathname === "/signup"){
-        console.log("logged from signup page", status)
-        navigate("/login")
-        
+        navigate("/products")
+        // console.log("logged from login page", status);
+      } else if (location.pathname === "/signup") {
+        // console.log("logged from signup page", status);
+        navigate("/login");
       }
       setLoading(false);
-     
     }
-  },[status])
+  }, [status]);
 
   async function handleSubmitClick(e) {
     e.preventDefault();
@@ -39,11 +42,11 @@ const Register = () => {
     try {
       if (location.pathname === "/login") {
         await userAuth(email, password, "login");
-      } else if(location.pathname === "/signup") {
+      } else if (location.pathname === "/signup") {
         await userAuth(email, password, "signup");
       }
     } catch (error) {
-      setLoading(!loading)
+      setLoading(!loading);
       throw new Error(error.message);
     }
   }
@@ -70,11 +73,13 @@ const Register = () => {
           onClick={handleSubmitClick}
           className="gradient-background-button p-4 rounded-md text-white font-bold text-xl"
         >
-          {loading ? 
-          <div className=" flex justify-center items-center  flex-row h-[28px]">
-            <div className="loader-submit"></div>
-          </div>
-          :  "Submit"}
+          {loading ? (
+            <div className=" flex justify-center items-center  flex-row h-[28px]">
+              <div className="loader-submit"></div>
+            </div>
+          ) : (
+            "Submit"
+          )}
         </button>
       </form>
       <p className="w-1/3 pt-4 text-start text-sm">

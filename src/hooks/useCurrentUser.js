@@ -1,18 +1,34 @@
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 const useCurrentUser = () => {
-
   const [currentUser, setCurrentUser] = useState(null);
-  
-    getCurrentUser();
- 
+
+  useEffect(()=>{
+    getCurrentUser()
+  },[])
+
+  const token = Cookies.get("authToken");
+  const  requestOptions = {
+    method: 'GET',
+    redirect: 'follow',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`, // Include the token in the Authorization header
+    },
+    
+  };
 
   async function getCurrentUser() {
-    const res = await fetch(
-      "https://intern-task-api.bravo68web.workers.dev/api/me"
-    );
-    const user = await res.text();
-    setCurrentUser(user);
+    try {
+      const res = await fetch(
+        "https://intern-task-api.bravo68web.workers.dev/api/me", requestOptions
+      );
+      const user = await res.json();
+      setCurrentUser(user);
+    } catch (error) {
+      console.log(error)
+    }
   }
   return currentUser;
 };
