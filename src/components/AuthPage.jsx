@@ -38,6 +38,7 @@ const Register = () => {
     setLoading(!loading);
     const email = inputRef.current.value;
     const password = passworRef.current.value;
+    if([email, password].some((elem)=> elem === "")) return;
 
     try {
       if (location.pathname === "/login") {
