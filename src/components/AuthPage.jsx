@@ -53,7 +53,7 @@ const Register = () => {
 
   return (
     <div className="gradient-background w-full h-screen flex flex-col justify-center items-center ">
-      <form className=" w-1/3  flex flex-col gap-10 font-mono">
+      <form className="w-full md:w-2/3 lg:w-1/3  flex flex-col gap-10 font-mono px-4">
         <h3 className="w-full text-center text-2xl font-semibold">
           {location.pathname === "/login" ? "Login" : "Register"}
         </h3>
@@ -82,7 +82,7 @@ const Register = () => {
           )}
         </button>
       </form>
-      <p className="w-1/3 pt-4 text-start text-sm">
+      <p className="w-full md:w-1/3 pt-4 text-start text-sm px-4 ">
         {location.pathname === "/login" ? " New user" : " Already user"}?{" "}
         <Link to={location.pathname === "/login" ? "/signup" : "/login"}>
           <span className="text-blue-900 underline">

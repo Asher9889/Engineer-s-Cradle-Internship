@@ -41,11 +41,11 @@ const Products = () => {
       {filteredItems ? (
         <>
           <div className="relative max-w-[1000px] mx-auto ">
-            <div className="flex justify-center">
-            <h2 className="text-center font-bold text-2xl">
+            <div className="flex justify-center gap-6 items-center ">
+            <h2 className="text-center font-bold  md:text-2xl">
               Logged in as {user ? user.user.sub : "user"}
             </h2>
-            <button onClick={handleLogout} className="w-[10%] absolute right-0 px-4 py-2 bg-red-600 hover:font-bold   rounded-md text-white">Signout</button>
+            <button onClick={handleLogout} className="md:w-[10%] md:absolute right-0 px-4 py-2 bg-red-600 hover:font-bold   rounded-md text-white">Signout</button>
             </div>
             <input
               className="w-full mt-6 p-4 rounded-md text-lg"
