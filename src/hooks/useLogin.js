@@ -1,27 +1,29 @@
 import { useEffect, useState } from "react";
-const useLogin = ()=>{
-    const [user, setUser] = useState(null);
-    const [error, setError] = useState(null);
+import { BASE_URL } from "../utils/constant";
+const useLogin = (email, password)=>{
+    const [token, setToken] = useState(null);
     
+    useEffect(()=>{
+        login()
+    },[]);
     
-   async function login(email, password){
-    let raw = `{\r\n    \"email\": \`${email}\`,\r\n    \"password\": \`${password}\`\r\n}`
+   async function login(){
+    let raw = JSON.stringify({ email: email, password: password });
     let requestOptions = {
         method: 'POST',
         body: raw,
         redirect: 'follow',
     };
+
     try {
-        const res = await fetch("https://intern-task-api.bravo68web.workers.dev/auth/signup", requestOptions)
+        const res = await fetch(BASE_URL + "/login", requestOptions)
         const result = await res.text();
-        console.log(result)
-        setUser(result);
+        setToken(result.token)
     } catch (error) {
-        console.log(error)
-        setError(error.message);
+        throw new Error(error.message);
     }
    } 
-   return {user, error, login};
+   return token;
 }
 
 export default useLogin;
