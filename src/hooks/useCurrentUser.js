@@ -28,6 +28,7 @@ const useCurrentUser = () => {
       setCurrentUser(user);
     } catch (error) {
       console.log(error)
+      throw new Error("error happened in current user hook")
     }
   }
   return currentUser;

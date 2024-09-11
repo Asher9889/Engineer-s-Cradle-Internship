@@ -6,19 +6,17 @@ const useAutoAuth = ()=>{
 
     const navigate = useNavigate();
     // wihout dependency array every render checks for token
-    useEffect(()=>{
-        fetchingUserWithToken()
-    })
-
+    
+    let token;
     function fetchingUserWithToken(){
-        const token = Cookies.get("authToken")
-        console.log(token)
+       token = Cookies.get("authToken")
         if(token){
             navigate("/products")
-        }else{
-            navigate("/login")
         }
     }
+    useEffect(()=>{
+        fetchingUserWithToken()
+    },[token])
 }
 
 export default useAutoAuth;

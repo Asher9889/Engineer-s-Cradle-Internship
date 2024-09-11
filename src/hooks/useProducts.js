@@ -22,7 +22,6 @@ const useProducts = ()=>{
     async function getProducts(){
         const res = await fetch("https://intern-task-api.bravo68web.workers.dev/api" + "/products", requestOptions)
         const products = await res.json();
-        console.log(products)
         setItems(products)
     }
 

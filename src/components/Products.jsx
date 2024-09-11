@@ -4,6 +4,7 @@ import useCurrentUser from "../hooks/useCurrentUser";
 import useProducts from "../hooks/useProducts";
 import Item from "./Item";
 import useAutoAuth from "../hooks/useAutoAuth";
+import { useNavigate } from "react-router-dom";
 const Products = () => {
   const [items, setItems] = useState(null);
   const [filteredItems, setFilteredItems] = useState(null);
@@ -11,6 +12,7 @@ const Products = () => {
 
   // checking which user is logged in
   const user = useCurrentUser();
+  const navigate = useNavigate();
 
   // fetch user data
   const products = useProducts();
@@ -31,6 +33,7 @@ const Products = () => {
   }
   function handleLogout(){
     Cookies.remove("authToken")
+    navigate("/login")
   }
 
   return (
